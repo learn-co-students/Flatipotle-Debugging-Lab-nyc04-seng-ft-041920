@@ -16,17 +16,17 @@ class Form extends Component {
     ...DEFAULT_STATE
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault()
     document.getElementById("order-form").reset()
+    console.log(this.state)
     this.props.addOrder(this.state)
-
     this.setState({
       ...DEFAULT_STATE
     })
   }
 
-  handleChange() {
+  handleChange(event) {
     const itemType = event.target.name
     const item = event.target.value
 
@@ -49,27 +49,30 @@ class Form extends Component {
         <form className="ui form" id="order-form" onSubmit={ this.handleSubmit }>
           <ProteinForm
             protein={ this.state.protein }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ e => this.handleChange(e) }
           />
 
           <FillingForm
             fillings={ this.state.fillings }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ e => this.handleChange(e) }
           />
 
           <ToppingForm
             toppings={ this.state.toppings }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ e => this.handleChange(e) }
           />
 
           <SideForm
             sides={ this.state.sides }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ e => this.handleChange(e) }
           />
 
           <br />
 
-          <button className="ui blue big button" type="submit">Submit</button>
+          <button
+            className="ui blue big button"
+            type="submit"
+            onClick={e => this.handleSubmit(e)}>Submit</button>
         </form>
       </div>
     )
